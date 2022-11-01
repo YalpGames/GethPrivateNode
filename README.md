@@ -4,9 +4,9 @@
 
 **cloudPATH:**
 > ubuntu 20.02
-nodjs 18.12
-go-1.18.7
-geth-1.10.16
+> nodjs 18.12
+> go-1.18.7
+> geth-1.10.16
 
 
 about：
@@ -87,8 +87,18 @@ console：启动geth控制台程序
 6. 设置开机后台启动：
 > 后台启动： nohup 'command' & 
 查看进程 ps -aux | grep "geth"
-> 1.编辑rc.local文件 vi /etc/rc.local
-> 2.修改rc.local文件，在 exit 0 前面加入启动命令。保存并退出。
+> 1. 编辑vim /lib/systemd/system/scratch.service
+> [Unit]
+Description=scratch service
+After=network.target network-online.target syslog.target
+Wants=network.target network-online.target
+[Service]
+Type=simple
+#启动服务的命令（命令必须写绝对路径）
+ExecStart=bash /root/startGeth.sh
+[Install]
+WantedBy=multi-user.target
+>2. 允许开机启动项：systemctl enable scratch.service
 
 
 7. 登入节点
