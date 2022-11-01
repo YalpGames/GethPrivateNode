@@ -1,18 +1,22 @@
 # GethPrivateNode
 云服务器搭建以太坊私链，用于合约开发测试
 
+
 **cloudPATH:**
 > ubuntu 20.02
 nodjs 18.12
 go-1.18.7
 geth-1.10.16
 
+
 about：
 > chainName: myPrivate
 > RpcUrl: http://47.99.55.27:8500
 > chainId: 84537
 
+
 ### 搭建流程
+
 1. make geth
 
 安装 Go 后，可以通过以下方式将 Geth 下载到GOPATH工作区：
@@ -24,6 +28,7 @@ about：
 构建 Geth
 >cd go-ethereum
 make geth
+
 
 2. 创世区块创建
 配置文件参考：./genesis.json
@@ -49,6 +54,7 @@ alloc 项是创世中初始账户资产配置。在生成创世区块时，将�
 ├── keystore 保存用户信息
 └── genesis.json
 
+
 3. 启动节点
 >  geth --datadir ./privateNode --networkid 84537 --mine --nodiscover --http --http.addr "0.0.0.0" --http.port 8500 --http.api personal,eth,net,web3 --allow-insecure-unlock console
 
@@ -64,6 +70,7 @@ alloc 项是创世中初始账户资产配置。在生成创世区块时，将�
 --identity "FirstNode"：指定节点名称
 console：启动geth控制台程序
 
+
 4. 导入metamask账户，设置为矿工地址
 >1. 导出私钥，保存到linux路径
 >2. geth account import $privateKeyPath 生成用户文件
@@ -71,15 +78,18 @@ console：启动geth控制台程序
 >4. 进入geth命令后台查看 eth.accounts
 >5. 设置矿工地址 miner.setEtherbase(eth.accounts[0])
 
+
 5. 启动挖矿
 > miner.start(1) 指定线程数启动
 或者可以直接命令行启动 geth --mine --miner.threads=4 --miner.etherbase 'address'
+
 
 6. 设置开机后台启动：
 > 后台启动： nohup 'command' & 
 查看进程 ps -aux | grep "geth"
 > 1.编辑rc.local文件 vi /etc/rc.local
 > 2.修改rc.local文件，在 exit 0 前面加入启动命令。保存并退出。
+
 
 7. 登入节点
 > 1. dir 方式
@@ -88,6 +98,7 @@ geth attach --datadir ./data
 geth attach ipc:$datadir/geth,ipc
 > 3. http-RPC方式：
 geth attach http:localhost:8545
+
 
 8. 添加Peer节点
 注意：同步节点配置一定要一样，
