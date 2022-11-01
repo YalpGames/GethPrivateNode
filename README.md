@@ -12,7 +12,7 @@ about：
 > RpcUrl: http://47.99.55.27:8500
 > chainId: 84537
 
-###搭建流程
+### 搭建流程
 1. make geth
 
 安装 Go 后，可以通过以下方式将 Geth 下载到GOPATH工作区：
